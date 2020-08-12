@@ -1,0 +1,19 @@
+
+
+*//лежало в ProductController// усовершенствовали через фильтр, но так тоже можно
+
+        //формируем пустую специикацию
+        //далее формируем спецификацию с запросом
+        //where p.cost > minCost and p.cost < maxCost
+        //фильтруем по цене от 100 до 150//http://localhost:8080/supershop/products/?page=1&min_cost=100&max_cost=150
+        Specification<Product> specification = Specification.where(null);
+        if (minCost != null && minCost !=0){
+            specification = specification.and(ProductSpecifications.costGEThan(minCost));
+        }
+
+        if (maxCost != null && maxCost !=0){
+            specification = specification.and(ProductSpecifications.costLEThan(maxCost));
+        }
+        //getContent()) из Page достанем список объектов
+        //этим можем выводить студентов задавая номер страницы и размер выводимых на ней элементов
+        //model.addAttribute("products", productService.getByPage(pageNumber-1,10).getContent());
