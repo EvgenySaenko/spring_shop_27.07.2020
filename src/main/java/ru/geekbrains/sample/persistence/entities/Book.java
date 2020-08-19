@@ -12,8 +12,14 @@ import java.util.Date;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Book extends AbstractEntity {
+
     public String name;
+
     public Date created;
+
     public String description;
+
     public boolean available;
+
+    public String author;
 }
