@@ -1,26 +1,22 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
 
-        <title>GeekBrains</title>
-
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    </head>
-    <body>
-        <h1>Привет от GeekBrains!</h1>
-        <hr>
-        <table>
-            <thead>
-                <th>id</th>
-                <th>name</th>
-                <th>description</th>
-                <th>created</th>
-            </thead>
-            <tbody>
-                <tr th:each="book, iterator : ${books}">
+    <title>GeekBrains</title>
+</head>
+<body>
+<h1>Привет от GeekBrains!</h1>
+<hr>
+<table>
+    <thead>
+    <th>id</th>
+    <th>name</th>
+    <th>description</th>
+    <th>created</th>
+    </thead>
+    <tbody>
+    <tr th:each="book, iterator : ${books}">
                     <span th:if="${book.available}">
                         <td th:text="${iterator.index + 1}"/>
                         <td>
@@ -29,16 +25,40 @@
                         <td th:text="${book.description}"></td>
                         <td th:text="${#dates.format(book.created, 'dd-MM-yyyy')}"></td>
                     </span>
-                </tr>
-            </tbody>
-        </table>
-        <hr>
-        <br>
-        <br>
-        <a th:href="@{/products/}">Страница товаров</a>
-        <select>
-        <option th:text="'Не выбрано'" th:value="null"/>
-        <option th:each="month : ${T(ru.geekbrains.sample.enums.Month).values()}" th:value="${month.ordinal()}" th:text="${month}">
-    </select>
-    </body>
+    </tr>
+    </tbody>
+</table>
+<select>
+    <option th:text="'Не выбрано'" th:value="null"/>
+    <option th:each="month : ${T(ru.geekbrains.sample.enums.Month).values()}" th:value="${month.ordinal()}" th:text="${month}">
+</select>
+<hr>
+<div class="container" sec:authorize="isAuthenticated()">
+    <div class="row">
+        <div class="col-sm">
+            <a class="nav-link" th:href="@{/profile}" th:text="Profile">PROFILE</a>
+        </div>
+        <div class="col-sm">
+            <form th:action="@{/logout}" method="POST" class="form-inline">
+                <button id="navLogout" class="btn btn-outline-secondary" type="submit"  th:text="logout"></button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container" sec:authorize="isAnonymous()">
+    <form th:action="@{/authenticateTheUser}" method="POST" class="form-inline">
+        <div class="row" style="margin-left: auto;margin-right: auto;">
+            <div class="col-sm">
+                <input type="text" name="username" placeholder="username" class="form-control">
+            </div>
+            <div class="col-sm">
+                <input type="password" name="password" placeholder="password" class="form-control">
+            </div>
+            <div class="col-sm">
+                <button type="submit" class="btn btn-success">вход</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
 </html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Product Table</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+
+        <h2>Список пользователей</h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <td><b>login</b></td>
+                <td><b>имя</b></td>
+                <td><b>Права</b></td>
+            </tr>
+            </thead>
+            <tbody>
+               <!--/* @thymesVar id="products" th:type="java.util.List<ru.geekbrains.sample.persistence.entities.Product>"*/-->
+               <tr th:each="shopuser, iterator : ${products.getContent()}">
+                        <span >
+                            <td th:text="${iterator.index + 1}"/>
+                            <td><a th:href="@{'/products/' +  ${product.id}}">[[ ${product.name} ]]</a></td>
+                            <td th:text="${product.cost}"></td>
+                            <td> <a th:href="@{'/products/edit/' + ${product.id}}">редактировать товар</a></td>
+                        </span>
+               </tr>
+            </tbody>
+        </table>
+
+        <br>
+        <a th:href="@{/}">Главная страница</a>
+        </div>
+</body>
+</html>
