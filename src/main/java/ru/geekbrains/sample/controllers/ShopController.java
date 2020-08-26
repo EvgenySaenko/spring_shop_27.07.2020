@@ -7,12 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.geekbrains.sample.persistence.entities.Shopuser;
 import ru.geekbrains.sample.services.BookService;
 import ru.geekbrains.sample.services.ShopuserService;
+import ru.geekbrains.sample.utils.ProductFilter;
 
 import java.security.Principal;
+import java.util.Map;
 import java.util.UUID;
 
 @Controller
@@ -38,7 +40,7 @@ public class ShopController {
     }
 
 
-    @Secured({"ROLE_ADMIN"})
+    //@Secured({"ROLE_ADMIN"})
     @GetMapping("/profile")
     public String profilePage(Model model, Principal principal) {
         if (principal == null) {
@@ -47,6 +49,13 @@ public class ShopController {
         Shopuser shopuser = shopuserService.findByLogin(principal.getName());
         model.addAttribute("shopuser", shopuser);
         return "profile";
+    }
+
+    //@Secured({"ROLE_ADMIN"})
+    @GetMapping("/users")//страница юзеров
+    public String showAllUsers(Model model) {
+        model.addAttribute("user",shopuserService.getAllUsers());
+        return "all_users";
     }
 
 

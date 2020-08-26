@@ -8,11 +8,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.geekbrains.sample.enums.Role;
+import ru.geekbrains.sample.persistence.entities.Book;
 import ru.geekbrains.sample.persistence.entities.Shopuser;
 import ru.geekbrains.sample.persistence.repositories.ShopuserRepository;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +24,10 @@ public class ShopuserService implements UserDetailsService {
 
     public Shopuser findByLogin(String login) {
         return shopUserRepository.findByLogin(login);
+    }
+
+    public List<Shopuser> getAllUsers() {
+        return shopUserRepository.findAll();
     }
 
     @Override

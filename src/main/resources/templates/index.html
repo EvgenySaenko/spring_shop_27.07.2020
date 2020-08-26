@@ -60,5 +60,8 @@
         </div>
     </form>
 </div>
+<div sec:authorize="hasRole('ADMIN')" >
+    <a th:href="@{/users}">Список пользователей</a>
+</div>
 </body>
 </html>

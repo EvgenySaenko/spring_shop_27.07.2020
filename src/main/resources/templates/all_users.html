@@ -23,17 +23,18 @@
             </thead>
             <tbody>
                <!--/* @thymesVar id="products" th:type="java.util.List<ru.geekbrains.sample.persistence.entities.Product>"*/-->
-               <tr th:each="shopuser, iterator : ${products.getContent()}">
+               <tr th:each="user, iterator : ${user}">
                         <span >
-                            <td th:text="${iterator.index + 1}"/>
-                            <td><a th:href="@{'/products/' +  ${product.id}}">[[ ${product.name} ]]</a></td>
-                            <td th:text="${product.cost}"></td>
-                            <td> <a th:href="@{'/products/edit/' + ${product.id}}">редактировать товар</a></td>
+                             <td th:text="${user.login}"></td>
+                             <td th:text="${user.firstName}"></td>
+                             <td th:text="${user.role}"></td>
                         </span>
                </tr>
             </tbody>
         </table>
 
+
+        <br>
         <br>
         <a th:href="@{/}">Главная страница</a>
         </div>
